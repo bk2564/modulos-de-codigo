@@ -1,81 +1,68 @@
 import { useState } from 'react';
-import { Search } from 'lucide-react';
 
-export function Pesquisa({ onSearch }) {
+export function Pesquisa({onSearch}) {
   const [query, setQuery] = useState('');
-  const [monthQuery, setMonthQuery] = useState('');
-  const [yearQuery, setYearQuery] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSearch(query);
-  };
+  const [mes, setMes] = useState('');
+  const [ano, setAno] = useState('');
 
   return (
-    <section 
-      className="mb-8 bg-gray-100 rounded-xl p-6 shadow-lg"
-      aria-label="Formulário de pesquisa"
-    >
-      <h2 className="text-xl font-bold mb-4">
-        <Search className="inline mr-2" size={20} aria-hidden="true" />
-        Pesquisa
-      </h2>
+    <section className="mb-8 bg-gray-100 rounded-xl p-6 shadow-lg">
+      <h2 className="text-xl font-bold mb-4">🔍 Pesquisa</h2>
 
-      <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4">
-        <div className="flex-1">
-          <label htmlFor="pesquisa-texto" className="sr-only">
-            Pesquisar no conteúdo dos PDFs
-          </label>
-          <input
-            id="pesquisa-texto"
-            type="text"
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            placeholder="Pesquisar no conteúdo dos PDFs…"
-            className="w-full px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600"
-            aria-label="Campo de pesquisa por texto"
-          />
-        </div>
-
-        <div className="flex-1">
-          <label htmlFor="pesquisa-mes" className="sr-only">
-            Filtrar por mês
-          </label>
-          <input
-            id="pesquisa-mes"
-            type='month'
-            value={monthQuery}
-            onChange={e => setMonthQuery(e.target.value)}
-            className='w-full px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600'
-            aria-label="Filtrar por mês e ano"
-          />
-        </div>
-
-        <div className="flex-1">
-          <label htmlFor="pesquisa-ano" className="sr-only">
-            Filtrar por ano
-          </label>
-          <input
-            id="pesquisa-ano"
-            type='number'
-            value={yearQuery}
-            onChange={e => setYearQuery(e.target.value)}
-            placeholder='Pesquisa por ano...'
-            min="2000"
-            max="2100"
-            className='w-full px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600'
-            aria-label="Filtrar por ano"
-          />
-        </div>
+      <div className="flex gap-4">
+        <input
+          type="number"
+          onChange={e => setAno(e.target.value)}
+          placeholder="Ano"
+          className="flex-1 px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600"
+        />
+        <select
+          onChange={e => setMes(e.target.value)}
+          className="flex-1 px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          >
+          <option value="0">Todos</option>
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+        <input
+          type="text"
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          placeholder="Pesquisar no conteúdo dos PDFs…"
+          className="flex-1 px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600"
+        />
 
         <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600"
-          aria-label="Executar pesquisa"
-        >
-          Pesquisar
+          onClick={() => onSearch(query, mes, ano)}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold">
+          Pesquisar         
         </button>
-      </form>
+      </div>
     </section>
   );
+
+  function handleSearch(q, mes = '', ano = '') {
+    const query = (q || '').toLowerCase().trim();
+    
+    if (!query && !mes && !ano) return setFilteredPdfs(pdfs);
+    setFilteredPdfs(
+      pdfs.filter(p =>
+        ((p.titulo || '').toLowerCase().includes(query) ||
+        (p.descricao || '').toLowerCase().includes(query) ||
+        (p.textoExtraido || '').toLowerCase().includes(query)) &&
+        (mes === '' || p.mes.toString() == mes) &&
+        (ano === '' || p.ano.toString() == ano)
+      )
+    );
+  }
 }
