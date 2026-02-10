@@ -5,7 +5,9 @@ import './Acessibilidade.css';
 
 export function Acessibilidade() {
   const [showMenu, setShowMenu] = useState(false);
-  const { highContrast, setHighContrast, fontSize, setFontSize } = useAccessibility();
+  const { highContrast, setHighContrast, fontSize, 
+    setFontSize, screenReader, setScreenReader } = useAccessibility();
+  const [focusHandler, setFocusHandler] = useState(null);
 
   const handleFontSize = (size) => {
     setFontSize(size);
@@ -22,6 +24,46 @@ export function Acessibilidade() {
   const handleTheme = (theme) => {
     setHighContrast(theme === "high-contrast");
   };
+
+  const handleScreenReader = (reader) => {
+    if(reader === "screen-reader"){
+      loadReader(reader === "screen-reader");
+    } else {
+      unLoadReader();
+    }
+    setScreenReader(reader === "screen-reader");
+  };
+
+  function loadReader(reader) {
+    if(focusHandler) return;
+
+    focusHandler = (e) => {
+      if(!reader) return;
+
+      const target = e.target;
+      const texto = target.getAttribute('aria-label') ||
+      target.innerText ||
+      target.placeholder;
+      if(texto) falar(texto);
+    }
+
+    
+    document.addEventListener('focusin', (focusHandler));
+    setFocusHandler(focusHandler);
+  }
+
+function unLoadReader() {
+    if(!focusHandler) return;
+    document.removeEventListener('focusin', focusHandler);
+    setFocusHandler(null);
+
+}
+      
+  function falar(texto) {
+    const fala = new SpeechSynthesisUtterance(texto);
+    fala.lang = 'pt-BR';
+    speechSynthesis.speak(fala);
+  }
 
   return (
     <>
@@ -115,6 +157,37 @@ export function Acessibilidade() {
                 aria-pressed={highContrast}
               >
                 Alto Contraste
+              </button>
+            </div>
+          </section>
+          <section className="mb-5" aria-labelledby="theme-label">
+            <h3 id="theme-label" className="block text-sm font-medium mb-2">
+              Leitor de Tela
+            </h3>
+            <div className="flex gap-2">
+              <button
+                onClick={() => handleScreenReader("screen-reader")}
+                className={`px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-600 ${
+                  !highContrast 
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-gray-200 hover:bg-gray-300'
+                }`}
+                aria-label="Ativar leitor de tela"
+                aria-pressed={screenReader}
+              >
+                Ligado
+              </button>
+              <button
+                onClick={() => handleScreenReader("off")}
+                className={`px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 ${
+                  highContrast 
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-gray-200 hover:bg-gray-300'
+                }`}
+                aria-label="Desativar leitor de tela"
+                aria-pressed={!screenReader}
+              >
+                Desligado
               </button>
             </div>
           </section>

@@ -10,6 +10,7 @@ import './App.css';
 import { Pesquisa } from './components/Pesquisa/Pesquisa';
 
 function App() {
+  
   return (
     <AccessibilityProvider>
       <SkipNavigation />
