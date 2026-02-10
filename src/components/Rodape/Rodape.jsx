@@ -1,0 +1,64 @@
+export function Rodape() {
+  const ano = new Date().getFullYear();
+  return (
+    <footer 
+      className="bg-blue-500 p-4 text-white text-center"
+      role="contentinfo"
+    >
+      <h2 className='font-bold text-3xl p-5'>Prefeitura Municipal de Bom Jardim - RJ</h2>
+
+      <div className='flex flex-col md:flex-row justify-between w-full max-w-5xl mx-auto mt-4 text-left p-10 gap-6'>
+
+        <section aria-labelledby="institucional">
+          <h3 id="institucional" className='font-bold mb-2'>Institucional</h3>
+          <ul className='flex flex-col gap-1'>
+            <li>Prefeito Affonso Monnerat</li>
+            <li>CNPJ: 28.561.041/0001-76</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="contatos">
+          <h3 id="contatos" className='font-bold mb-2'>Contatos</h3>
+          <ul className='flex flex-col gap-1'>
+            <li>
+              <a 
+                href="tel:+552225662916" 
+                className="hover:underline focus:outline-none focus:ring-2 focus:ring-white rounded"
+                aria-label="Ligar para (22) 2566-2916"
+              >
+                (22) 2566-2916
+              </a>
+            </li>
+            <li>
+              <a 
+                href="mailto:ouvidoriabomjardim@gmail.com"
+                className="hover:underline focus:outline-none focus:ring-2 focus:ring-white rounded"
+                aria-label="Enviar email para ouvidoriabomjardim@gmail.com"
+              >
+                ouvidoriabomjardim@gmail.com
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="endereco">
+          <h3 id="endereco" className='font-bold mb-2'>Endereço e horário</h3>
+          <ul className='flex flex-col gap-1'>
+            <li>
+              <address className="not-italic">
+                R. Nilo Peçanha, 68 - Centro, 28660-000
+              </address>
+            </li>
+            <li>
+              <time>Segunda a sexta de 9 às 17h</time>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <p className="text-sm mt-6">
+        &copy; {ano} Diário Oficial. Todos os direitos reservados.
+      </p>
+    </footer>
+  );
+}
