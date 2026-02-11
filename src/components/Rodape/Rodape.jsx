@@ -2,7 +2,7 @@ export function Rodape() {
   const ano = new Date().getFullYear();
   return (
     <footer 
-      className="bg-blue-500 p-4 text-white text-center"
+      className="bg-[#0a2a43] text-gray-300 text-center py-8 text-xs tracking-[0.3em] uppercase"
       role="contentinfo"
     >
       <h2 className='font-bold text-3xl p-5'>Prefeitura Municipal de Bom Jardim - RJ</h2>

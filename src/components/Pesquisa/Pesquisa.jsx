@@ -6,46 +6,45 @@ export function Pesquisa({onSearch}) {
   const [ano, setAno] = useState('');
 
   return (
-    <section className="mb-8 bg-gray-100 rounded-xl p-6 shadow-lg">
-      <h2 className="text-xl font-bold mb-4">🔍 Pesquisa</h2>
+<section className="mb-16 bg-[#fffdfa] border border-gray-400 p-10 shadow-inner">
+      <h2 className="text-2xl font-[Cinzel] uppercase tracking-[0.25em] mb-8 text-[#0a2a43] border-b pb-4">
+        Pesquisa Oficial
+      </h2>
 
       <div className="flex gap-4">
         <input
           type="number"
-          onChange={e => setAno(e.target.value)}
           placeholder="Ano"
-          className="flex-1 px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          onChange={(e) => setAno(e.target.value)}
+          className="flex-1 px-5 py-4 border border-gray-500 bg-[#fdfcf9] font-serif"
         />
+
         <select
-          onChange={e => setMes(e.target.value)}
-          className="flex-1 px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600"
-          >
-          <option value="0">Todos</option>
-          <option value="1">Janeiro</option>
-          <option value="2">Fevereiro</option>
-          <option value="3">Março</option>
-          <option value="4">Abril</option>
-          <option value="5">Maio</option>
-          <option value="6">Junho</option>
-          <option value="7">Julho</option>
-          <option value="8">Agosto</option>
-          <option value="9">Setembro</option>
-          <option value="10">Outubro</option>
-          <option value="11">Novembro</option>
-          <option value="12">Dezembro</option>
+          onChange={(e) => setMes(e.target.value)}
+          className="flex-1 px-5 py-4 border border-gray-500 bg-[#fdfcf9] font-serif"
+        >
+          <option value="">Todos</option>
+          {[
+            'Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+            'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'
+          ].map((m, i) => (
+            <option key={i} value={i + 1}>{m}</option>
+          ))}
         </select>
+
         <input
           type="text"
           value={query}
-          onChange={e => setQuery(e.target.value)}
-          placeholder="Pesquisar no conteúdo dos PDFs…"
-          className="flex-1 px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Pesquisar no conteúdo dos atos"
+          className="flex-1 px-5 py-4 border border-gray-500 bg-[#fdfcf9] font-serif"
         />
 
         <button
           onClick={() => onSearch(query, mes, ano)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold">
-          Pesquisar         
+          className="bg-[#0a2a43] text-white px-10 py-4 uppercase tracking-[0.2em] text-sm border border-[#c9a227]"
+        >
+          Pesquisar
         </button>
       </div>
     </section>

@@ -3,27 +3,20 @@ import {getPdf} from '../../utils/storage';
 
 export function DadosAbertos() {
   return (
-  <section className="mb-8 bg-gray-100 rounded-xl p-6 shadow-lg">
-      <h2 className="text-xl font-bold mb-4">Dados Abertos</h2>
-        <div className="flex justify-between mx-10 gap-4">
-        <button
-          onClick={() => exportPDFs('json')}
-          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold"
-        >
-          Exportar JSON
-        </button>
-        <button
-          onClick={() => exportPDFs('csv')}
-          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold"
-        >
-          Exportar CSV
-        </button>
-        <button
-          onClick={() => exportPDFs('txt')}
-          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold"
-        >
-          Exportar TXT
-        </button>
+    <section className="mb-16 bg-[#fffdfa] w-[85em] border border-gray-400 p-10 shadow-inner justify-center items-center mx-auto my-20">
+      <h2 className="text-2xl font-[Cinzel] uppercase tracking-[0.25em] mb-8 text-[#0a2a43] border-b pb-4">
+        Dados Abertos
+      </h2>
+      <div className="flex gap-6">
+        {['json','csv','txt'].map(t => (
+          <button
+            key={t}
+            onClick={() => exportPDFs(t)}
+            className="bg-[#c9a227] text-black px-10 py-4 uppercase tracking-[0.2em] text-sm font-bold border border-black"
+          >
+            Exportar {t}
+          </button>
+        ))}
       </div>
     </section>
   );
