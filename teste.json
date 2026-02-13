@@ -1,0 +1,39 @@
+{
+    "veiculos": [
+        {
+        "id": "1",
+        "nome": "Ford",
+        "marca": "Ford",
+        "ano": "2020",
+        "modelo": "Focus",
+        "cor": "Preta",
+        "tipo": "Sedan",
+        "placa": "12345678901234567890123456789012",
+        "preço": "R$ 100,00",
+        "imagem": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+    },
+    {
+        "id": "2",
+        "nome": "BMW",
+        "marca": "BMW",
+        "ano": "2020",
+        "modelo": "X6",
+        "cor": "Branco",
+        "tipo": "Sedan",
+        "placa": "12345678901234567890123456789012",
+        "preço": "R$ 100,00",
+        "imagem": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+    },
+    {
+        "id": "3",
+        "nome": "Audi",
+        "marca": "Audi",
+        "ano": "2020",
+        "modelo": "A8",
+        "cor": "Branco",
+        "tipo": "Sedan",
+        "placa": "12345678901234567890123456789012",
+        "preço": "R$ 100,00",
+        "imagem": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+    }]
+}

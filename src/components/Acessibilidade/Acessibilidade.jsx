@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Accessibility, Plus, Minus } from 'lucide-react';
 import { useAccessibility } from '../../contexts/AccessibilityContext';
 import './Acessibilidade.css';
@@ -7,7 +7,7 @@ export function Acessibilidade() {
   const [showMenu, setShowMenu] = useState(false);
   const { highContrast, setHighContrast, fontSize, 
     setFontSize, screenReader, setScreenReader } = useAccessibility();
-  const [focusHandler, setFocusHandler] = useState(null);
+  const focusHandler = useRef(null);
 
   const handleFontSize = (size) => {
     setFontSize(size);
@@ -26,36 +26,33 @@ export function Acessibilidade() {
   };
 
   const handleScreenReader = (reader) => {
-    if(reader === "screen-reader"){
-      loadReader(reader === "screen-reader");
-    } else {
-      unLoadReader();
-    }
-    setScreenReader(reader === "screen-reader");
+    const isOn = reader === "screen-reader";
+    if(isOn) loadReader()
+    else unLoadReader();
+    setScreenReader(isOn);
   };
 
-  function loadReader(reader) {
-    if(focusHandler) return;
+  function loadReader() {
+    if(focusHandler.current) return;
 
-    focusHandler = (e) => {
-      if(!reader) return;
-
+    const handler = (e) => {
+      if(!e || !e.target) return;
       const target = e.target;
       const texto = target.getAttribute('aria-label') ||
       target.innerText ||
       target.placeholder;
-      if(texto) falar(texto);
+      if(texto && texto.trim()) falar(texto.trim());
     }
 
     
-    document.addEventListener('focusin', (focusHandler));
-    setFocusHandler(focusHandler);
+    document.addEventListener('focusin', (handler));
+    focusHandler.current = handler;
   }
 
 function unLoadReader() {
-    if(!focusHandler) return;
-    document.removeEventListener('focusin', focusHandler);
-    setFocusHandler(null);
+    if(!focusHandler.current) return;
+    document.removeEventListener('focusin', focusHandler.current);
+    focusHandler.current = null;
 
 }
       

@@ -8,6 +8,7 @@ import { Acessibilidade } from './components/Acessibilidade/Acessibilidade';
 import { DadosAbertos } from './components/DadosAbertos/DadosAbertos';
 import './App.css';
 import { Pesquisa } from './components/Pesquisa/Pesquisa';
+import {Teste} from './components/Teste/Teste';
 
 function App() {
   
@@ -17,6 +18,7 @@ function App() {
       <BarraTopo />
       <Cabecalho />
       <DadosAbertos />
+      <Teste />
       <PDFCardSystem />
       <Rodape />
       <Acessibilidade />

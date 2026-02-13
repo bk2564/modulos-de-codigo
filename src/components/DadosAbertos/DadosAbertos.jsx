@@ -1,24 +1,27 @@
-import {getPdf} from '../../utils/storage';
-
+import { getPdf } from '../../utils/storage';
 
 export function DadosAbertos() {
   return (
-    <section className="mb-16 bg-[#fffdfa] w-[85em] border border-gray-400 p-10 shadow-inner justify-center items-center mx-auto my-20">
-      <h2 className="text-2xl font-[Cinzel] uppercase tracking-[0.25em] mb-8 text-[#0a2a43] border-b pb-4">
-        Dados Abertos
-      </h2>
-      <div className="flex gap-6">
-        {['json','csv','txt'].map(t => (
-          <button
-            key={t}
-            onClick={() => exportPDFs(t)}
-            className="bg-[#c9a227] text-black px-10 py-4 uppercase tracking-[0.2em] text-sm font-bold border border-black"
-          >
-            Exportar {t}
-          </button>
-        ))}
+    <div className="p-8">
+      <div className="max-w-7xl mx-auto">
+        <section className="mb-16 bg-[#fffdfa] border border-gray-400 p-10 shadow-inner">
+          <h2 className="text-2xl font-[Cinzel] uppercase tracking-[0.25em] mb-8 text-[#0a2a43] border-b pb-4">
+            Dados Abertos
+          </h2>
+          <div className="flex gap-4">
+            {['json', 'csv', 'txt'].map(t => (
+              <button
+                key={t}
+                onClick={() => exportPDFs(t)}
+                className="bg-[#c9a227] text-black px-10 py-4 uppercase tracking-[0.2em] text-sm font-bold border border-black"
+              >
+                Exportar {t.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        </section>
       </div>
-    </section>
+    </div>
   );
 }
 
@@ -26,8 +29,8 @@ function exportPDFs(type) {
   getPdf().then(pdfs => {
     let dataStr;
     let mimeType;
-    const pdfsExported = pdfs.map(({id, titulo, descricao, edicao, data, createdAt, mes, ano}) => 
-    ({id, titulo, descricao, edicao, data, createdAt, data, mes, ano}));
+    const pdfsExported = pdfs.map(({ id, titulo, descricao, edicao, data, createdAt, mes, ano }) =>
+      ({ id, titulo, descricao, edicao, data, createdAt, data, mes, ano }));
     if (type === 'json') {
       dataStr = JSON.stringify(pdfsExported, null, 2);
       mimeType = 'application/json';
@@ -54,7 +57,5 @@ function exportPDFs(type) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    
-  
   });
 }
